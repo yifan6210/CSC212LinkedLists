@@ -1,5 +1,6 @@
 package edu.smith.cs.csc212.lists;
 
+import edu.smith.cs.csc212.lists.SinglyLinkedList.Node;
 import me.jjfoley.adt.ListADT;
 import me.jjfoley.adt.errors.BadIndexError;
 import me.jjfoley.adt.errors.TODOErr;
@@ -99,7 +100,7 @@ public class SinglyLinkedList<T> extends ListADT<T> {
 	 * 
 	 * @param <T> the type of the values stored.
 	 */
-	private static class Node<T> {
+	static class Node<T> {
 		/**
 		 * What node comes after me?
 		 */
@@ -110,14 +111,22 @@ public class SinglyLinkedList<T> extends ListADT<T> {
 		public T value;
 
 		/**
-		 * Create a node with no friends.
-		 * 
+		 * Create a node with a friend.
 		 * @param value - the value to put in it.
-		 * @param next - the successor to this node.
+		 * @param next - the friend of this node.
 		 */
 		public Node(T value, Node<T> next) {
 			this.value = value;
 			this.next = next;
+		}
+		
+		/**
+		 * Alternate constructor; create a node with no friends.
+		 * @param value - the value to put in it.
+		 */
+		public Node(T value) {
+			this.value = value;
+			this.next = null;
 		}
 	}
 
