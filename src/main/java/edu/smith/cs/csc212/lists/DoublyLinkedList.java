@@ -1,7 +1,7 @@
 package edu.smith.cs.csc212.lists;
 
 import me.jjfoley.adt.ListADT;
-import me.jjfoley.adt.errors.TODOErr;
+import me.jjfoley.adt.errors.*;
 
 /**
  * A Doubly-Linked List is a list based on nodes that know of their successor and predecessor.
@@ -13,11 +13,11 @@ public class DoublyLinkedList<T> extends ListADT<T> {
 	/**
 	 * This is a reference to the first node in this list.
 	 */
-	private Node<T> start;
+	Node<T> start;
 	/**
 	 * This is a reference to the last node in this list.
 	 */
-	private Node<T> end;
+	Node<T> end;
 	
 	/**
 	 * A doubly-linked list starts empty.
@@ -25,6 +25,35 @@ public class DoublyLinkedList<T> extends ListADT<T> {
 	public DoublyLinkedList() {
 		this.start = null;
 		this.end = null;
+	}
+	
+	/**
+	 * The node on any linked list should not be exposed.
+	 * Static means we don't need a "this" of DoublyLinkedList to make a node.
+	 * @param <T> the type of the values stored.
+	 */
+	static class Node<T> {
+		/**
+		 * What node comes before me?
+		 */
+		public Node<T> before;
+		/**
+		 * What node comes after me?
+		 */
+		public Node<T> after;
+		/**
+		 * What value is stored in this node?
+		 */
+		public T value;
+		/**
+		 * Create a node with no friends.
+		 * @param value - the value to put in it.
+		 */
+		public Node(T value) {
+			this.value = value;
+			this.before = null;
+			this.after = null;
+		}
 	}
 	
 
@@ -65,25 +94,30 @@ public class DoublyLinkedList<T> extends ListADT<T> {
 
 	@Override
 	public void addIndex(int index, T item) {
+		checkNotEmpty();
 		throw new TODOErr();
 	}
 
 	@Override
 	public T getFront() {
+		checkNotEmpty();
 		throw new TODOErr();
 	}
 
 	@Override
 	public T getBack() {
+		checkNotEmpty();
 		throw new TODOErr();
 	}
 	
 	@Override
 	public T getIndex(int index) {
+		checkNotEmpty();
 		throw new TODOErr();
 	}
 	
 	public void setIndex(int index, T value) {
+		checkNotEmpty();
 		throw new TODOErr();
 	}
 
@@ -94,35 +128,6 @@ public class DoublyLinkedList<T> extends ListADT<T> {
 
 	@Override
 	public boolean isEmpty() {
-		throw new TODOErr();
-	}
-	
-	/**
-	 * The node on any linked list should not be exposed.
-	 * Static means we don't need a "this" of DoublyLinkedList to make a node.
-	 * @param <T> the type of the values stored.
-	 */
-	private static class Node<T> {
-		/**
-		 * What node comes before me?
-		 */
-		public Node<T> before;
-		/**
-		 * What node comes after me?
-		 */
-		public Node<T> after;
-		/**
-		 * What value is stored in this node?
-		 */
-		public T value;
-		/**
-		 * Create a node with no friends.
-		 * @param value - the value to put in it.
-		 */
-		public Node(T value) {
-			this.value = value;
-			this.before = null;
-			this.after = null;
-		}
+		return this.start == null;
 	}
 }
