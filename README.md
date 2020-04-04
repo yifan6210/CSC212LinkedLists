@@ -52,10 +52,10 @@ This assignment is purely graded on test accuracy.
 Right now, when I run all the tests in this project, I get the following output:
 
 ```
-Tests run: 142, Failures: 0, Errors: 108, Skipped: 0
+Tests run: 60, Failures: 0, Errors: 46, Skipped: 0
 ```
 
-So there are 34 passing tests, and 108 failing tests.
+So there are 24 passing tests, and 46 failing tests.
 
 Your score on this assignment will range up to 100% -- the fraction of the tests that pass on your code (minus the tests that already pass), provided:
 
