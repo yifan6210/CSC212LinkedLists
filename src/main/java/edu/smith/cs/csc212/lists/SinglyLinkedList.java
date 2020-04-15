@@ -20,19 +20,52 @@ public class SinglyLinkedList<T> extends ListADT<T> {
 
 	@Override
 	public T removeFront() {
-		checkNotEmpty();
-		throw new TODOErr();
+		checkNotEmpty();	
+		T front = this.start.value;
+		this.start = this.start.next;
+		return front;
 	}
 
 	@Override
 	public T removeBack() {
-		throw new TODOErr();
+		checkNotEmpty();
+		if (this.start.next == null) {	
+			return removeFront();	
+		}else {			
+			Node<T> secondtolast = null;
+			for (Node<T> current = this.start; current.next!=null; current = current.next) {
+				secondtolast = current;
+			}
+			assert(secondtolast.next.next == null);
+			T lastValue = secondtolast.next.value;
+			secondtolast.next = null;
+			return lastValue;
+			
+		}
 	}
 
 	@Override
 	public T removeIndex(int index) {
-		throw new TODOErr();
+		checkNotEmpty();
+		
+		if(index == 0) {
+			return removeFront();
+			
+		} else if (index == this.size()-1) {
+			return removeBack();
+		}else {
+			T removed = getIndex(index);
+			Node<T> last = null;
+			for (Node<T> current = this.start; current.value!=removed; current = current.next) {
+				last = current;
+			}
+			assert(last.next.value == removed);
+			last.next = last.next.next;
+			return removed;
+
+		}
 	}
+	
 
 	@Override
 	public void addFront(T item) {
@@ -41,24 +74,66 @@ public class SinglyLinkedList<T> extends ListADT<T> {
 
 	@Override
 	public void addBack(T item) {
-		throw new TODOErr();
+		if (isEmpty()== true){
+			addFront(item);
+			return;
+		}else {
+			Node<T> last = null;
+			for (Node<T> current = this.start; current!=null; current = current.next) {
+				last = current;
+			}
+		
+			assert(last.next == null);
+			last.next = new Node<T>(item, null);
+			return;
+			
+		}
 	}
 
 	@Override
 	public void addIndex(int index, T item) {
-		throw new TODOErr();
+		if(index < 0 || index > this.size()) {
+			throw new BadIndexError(index);
+			
+		} else if (index == 0) {
+			addFront(item);
+			return;
+		}else if (index== this.size()) {
+			addBack(item);
+			return;
+		} else {
+			int counter = 0;
+
+			for(Node<T> current = this.start;current != null; current = current.next) {
+				
+				if (counter == index-1) {
+				Node<T> added =  new Node<T> (item);
+				added.next = current.next;	
+				current.next = added;
+				}
+				counter ++;
+			}
+
+			return;
+		}
 	}
+		
 
 	@Override
 	public T getFront() {
 		checkNotEmpty();
-		throw new TODOErr();
+		T front = this.start.value;
+		return front;
 	}
 
 	@Override
 	public T getBack() {
 		checkNotEmpty();
-		throw new TODOErr();
+		Node<T> last = null;
+		for (Node<T> current = this.start; current!=null; current = current.next) {
+			last = current;
+		}
+		return last.value;
 	}
 
 	@Override
@@ -74,10 +149,23 @@ public class SinglyLinkedList<T> extends ListADT<T> {
 	}
 
 	@Override
+	// simply 
 	public void setIndex(int index, T value) {
 		checkNotEmpty();
-		throw new TODOErr();
+		if(index < 0 || index >= this.size()) {
+			throw new BadIndexError(index);
+		} else {
+			int at = 0;
+			for (Node<T> n = this.start; n != null; n = n.next) {
+				if (at++ == index) {
+					n.value = value;
+					return;
+				}
+
+			}
+		}
 	}
+	
 
 	@Override
 	public int size() {
@@ -119,6 +207,11 @@ public class SinglyLinkedList<T> extends ListADT<T> {
 			this.next = next;
 		}
 		
+		public T value() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 		/**
 		 * Alternate constructor; create a node with no friends.
 		 * @param value - the value to put in it.
